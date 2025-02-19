@@ -1,11 +1,12 @@
 require('dotenv').config();
 const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
+const connection = mysql.createConnection(process.env.DATABASE_URL || {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
 });
 
 connection.connect((err) => {
@@ -17,6 +18,3 @@ connection.connect((err) => {
 });
 
 module.exports = connection; 
-
-
-// perfect above requiremets are not needed , i have tested each endpoint via postman, now lets Prepare for Deployment, they have asked for host url 
